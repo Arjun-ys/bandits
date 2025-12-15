@@ -1,6 +1,6 @@
 import numpy as np
 class BernoulliBandit:
-    def __init__(self,probs,seed=Npne):
+    def __init__(self,probs,seed=None):
         """
         Docstring for __init__
         :param probs: list or np array of success probabilities for each arm
