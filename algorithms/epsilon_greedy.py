@@ -31,7 +31,10 @@ class EpsilonGreedyAgent:
         """
         Update estimates after pulling an arm.
         """
-        self.N[arm] += 1
+        self.N[arm] += 1 #increment num of samples see so far
 
         # Incremental mean update
-        self.Q[arm] += (reward - self.Q[arm]) / self.N[arm]
+        self.Q[arm] = self.Q[arm] + (reward - self.Q[arm]) / self.N[arm]
+        """
+        update rule: Q[a] ← Q[a] + (reward − Q[a]) / N[a]
+        """
