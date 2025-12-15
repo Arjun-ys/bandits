@@ -26,3 +26,12 @@ class EpsilonGreedyAgent:
         else:
             # Exploit
             return int(np.argmax(self.Q))
+
+    def update(self, arm, reward):
+        """
+        Update estimates after pulling an arm.
+        """
+        self.N[arm] += 1
+
+        # Incremental mean update
+        self.Q[arm] += (reward - self.Q[arm]) / self.N[arm]
