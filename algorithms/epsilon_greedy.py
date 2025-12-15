@@ -15,3 +15,14 @@ class EpsilonGreedyAgent:
         self.N = np.zeros(n_arms)  # number of times each arm was pulled
 
         self.rng = np.random.default_rng(seed)
+    
+    def select_action(self):
+        """
+        Choose an arm using epsilon-greedy strategy.
+        """
+        if self.rng.random() < self.epsilon:
+            # Explore
+            return self.rng.integers(self.n_arms)
+        else:
+            # Exploit
+            return int(np.argmax(self.Q))
