@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 from envs.bandit import BernoulliBandit
 from algorithms.epsilon_greedy import EpsilonGreedyAgent
@@ -17,27 +18,49 @@ def run_experiment():
     )
 
     T = 1000
-    total_reward = 0
+
+    rewards = np.zeros(T)
+    regrets = np.zeros(T)
 
     for t in range(T):
-
         # Agent decides which arm to pull:
         # explore with probability ε, otherwise exploit current knowledge
         arm = agent.select_action()
 
-        # Environment returns a stochastic reward (0 or 1)
+        # Get reward from environment(0 or 1)
         reward = bandit.pull(arm)
 
-        # Agent updates its estimate of this arm's value
-        # using an incremental average of past rewards
+        # Update agent estimates
         agent.update(arm, reward)
-        
 
-        total_reward += reward
+        # Store reward
+        rewards[t] = reward
 
-    print("Total reward:", total_reward)
-    print("Estimated values:", agent.Q)
-    print("True probabilities:", probs)
+        # Regret = best expected reward - obtained reward
+        regrets[t] = bandit.optimal_reward - reward
+
+    print("Final estimated values:", agent.Q)
+
+    plot_results(rewards, regrets)
+
+
+def plot_results(rewards, regrets):
+    cumulative_rewards = np.cumsum(rewards)
+    cumulative_regret = np.cumsum(regrets)
+
+    plt.figure()
+    plt.plot(cumulative_rewards)
+    plt.xlabel("Time step")
+    plt.ylabel("Cumulative reward")
+    plt.title("Learning curve: cumulative reward")
+    plt.show()
+
+    plt.figure()
+    plt.plot(cumulative_regret)
+    plt.xlabel("Time step")
+    plt.ylabel("Cumulative regret")
+    plt.title("Learning curve: cumulative regret")
+    plt.show()
 
 
 if __name__ == "__main__":
