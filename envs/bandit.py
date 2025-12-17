@@ -20,3 +20,13 @@ class BernoulliBandit:
 
         reward = self.rng.random() < self.probs[arm]
         return int(reward)
+    
+    @property
+    def optimal_arm(self):
+        """Index of the arm with the highest true reward probability."""
+        return int(np.argmax(self.probs))
+
+    @property
+    def optimal_reward(self):
+        """Expected reward of the best possible arm."""
+        return float(np.max(self.probs))
