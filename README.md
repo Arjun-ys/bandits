@@ -60,6 +60,40 @@ The agent implements the **ε-greedy algorithm**, a simple stateless learning st
 
 ---
 
+## Getting Started
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip (Python package installer)
+
+### Installation
+
+1. Clone or download this repository
+2. Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Running the Experiment
+
+To run the main experiment:
+
+```bash
+python -m experiments.run_experiment
+```
+
+This will:
+- Create a Bernoulli bandit environment with 3 arms (probabilities: 0.1, 0.5, 0.8)
+- Run an ε-greedy agent for 1000 time steps
+- Display the final estimated values for each arm
+- Show plots of cumulative reward and cumulative regret
+
+The experiment uses fixed random seeds for reproducibility, so you should see consistent results across runs.
+
+---
+
 ## Purpose of the Project
 
 This project is intended for **learning and experimentation**, not performance optimization.
